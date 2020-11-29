@@ -8,13 +8,12 @@ import pl.wisniea.restmvc.repositories.CustomerRepository;
 @Component
 public class BootStrapData implements CommandLineRunner {
     private final CustomerRepository customerRepository;
-
     public BootStrapData(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         System.out.println("Loading Customer Data");
         Customer c1 = new Customer();
         c1.setFirstname("Michael");
@@ -32,7 +31,5 @@ public class BootStrapData implements CommandLineRunner {
         customerRepository.save(c3);
 
         System.out.println("Customers Saved: " + customerRepository.count());
-
-
     }
 }
