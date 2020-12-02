@@ -18,13 +18,13 @@ public class VerificationToken implements Serializable {
 
     @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     //@JoinColumn(name = "user_id")
-    private User user;
+    private Customer customer;
 
     public VerificationToken() {
     }
 
-    public VerificationToken(User user, String token) {
-        this.user = user;
+    public VerificationToken(Customer customer, String token) {
+        this.customer = customer;
         this.token = token;
     }
 }
