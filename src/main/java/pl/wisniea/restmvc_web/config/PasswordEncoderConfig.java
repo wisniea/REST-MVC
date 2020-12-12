@@ -1,4 +1,4 @@
-package pl.wisniea.restmvc_data.config;
+package pl.wisniea.restmvc_web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
