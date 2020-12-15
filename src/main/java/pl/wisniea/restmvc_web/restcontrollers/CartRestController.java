@@ -10,7 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.*;
-import pl.wisniea.restmvc_web.filters.JmsConfig;
+import pl.wisniea.restmvc_web.config.JmsConfig;
 import pl.wisniea.restmvc_data.exceptions.BookServiceException;
 import pl.wisniea.restmvc_data.exceptions.UserServiceException;
 import pl.wisniea.restmvc_data.entities.BookEntity;

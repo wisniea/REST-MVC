@@ -17,7 +17,7 @@ public class SwaggerConfig {
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("pl.devzyra.restcontrollers"))
+                .apis(RequestHandlerSelectors.basePackage("pl.wisniea.restcontrollers"))
                 .paths(PathSelectors.any())
                 .build();
     }
