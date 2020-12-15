@@ -3,10 +3,10 @@ package pl.wisniea.restmvc_data.services;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
+import pl.wisniea.restmvc_data.repositories.AddressRepository;
 import pl.wisniea.restmvc_data.entities.AddressEntity;
 import pl.wisniea.restmvc_data.entities.UserEntity;
 import pl.wisniea.restmvc_data.response.AddressRest;
-import pl.wisniea.restmvc_data.repositories.AddressRepository;
 import pl.wisniea.restmvc_data.repositories.UserRepository;
 
 import java.lang.reflect.Type;

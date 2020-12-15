@@ -1,9 +1,9 @@
 package pl.wisniea.restmvc_data.services;
 
 import org.springframework.stereotype.Service;
+import pl.wisniea.restmvc_data.repositories.VerificationTokenRepository;
 import pl.wisniea.restmvc_data.entities.UserEntity;
 import pl.wisniea.restmvc_data.entities.VerificationTokenEntity;
-import pl.wisniea.restmvc_data.repositories.VerificationTokenRepository;
 
 import java.sql.Timestamp;
 import java.util.Calendar;

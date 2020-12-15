@@ -11,13 +11,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.wisniea.restmvc_data.repositories.RestCartRepository;
 import pl.wisniea.restmvc_data.dto.AddressDto;
 import pl.wisniea.restmvc_data.dto.UserDto;
 import pl.wisniea.restmvc_data.entities.RestCartEntity;
 import pl.wisniea.restmvc_data.entities.UserEntity;
 import pl.wisniea.restmvc_data.entities.VerificationTokenEntity;
 import pl.wisniea.restmvc_data.exceptions.UserServiceException;
-import pl.wisniea.restmvc_data.repositories.RestCartRepository;
 import pl.wisniea.restmvc_data.repositories.UserRepository;
 import pl.wisniea.restmvc_data.utils.Utils;
 
@@ -106,7 +106,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getUsers(int page, int limit) {
         List<UserDto> returnVal = new ArrayList<>();
-
         Pageable pageableRequest = PageRequest.of(page, limit);
         Page<UserEntity> userEntities = userRepository.findAll(pageableRequest);
 

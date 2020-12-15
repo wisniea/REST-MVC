@@ -41,7 +41,7 @@ public class EmailServiceImpl implements EmailService {
             // Setting url with DNS and Token as query param
             String link = String.format("http://%s:8080/activation?token=%s", dns, token);
 
-            context.setVariable("title", "Welcome to E-libre! Please verify your email address");
+            context.setVariable("title", "Welcome to Libroteca! Please verify your email address");
             context.setVariable("link", link);
 
             // passing variables to HTML template
@@ -51,7 +51,7 @@ public class EmailServiceImpl implements EmailService {
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setTo(user.getEmail());
-            helper.setSubject("E-libre e-mail verification");
+            helper.setSubject("Libroteca e-mail verification");
             helper.setText(body, true);
 
             javaMailSender.send(message);

@@ -7,14 +7,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.wisniea.restmvc_data.repositories.AuthorRepository;
+import pl.wisniea.restmvc_data.repositories.BookRepository;
 import pl.wisniea.restmvc_data.exceptions.BookServiceException;
 import pl.wisniea.restmvc_data.exceptions.UserServiceException;
 import pl.wisniea.restmvc_data.entities.AuthorEntity;
 import pl.wisniea.restmvc_data.entities.BookEntity;
 import pl.wisniea.restmvc_data.request.BookRequestModel;
 import pl.wisniea.restmvc_data.response.BookRest;
-import pl.wisniea.restmvc_data.repositories.AuthorRepository;
-import pl.wisniea.restmvc_data.repositories.BookRepository;
 
 import java.lang.reflect.Type;
 import java.util.*;
