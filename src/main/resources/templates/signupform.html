@@ -109,7 +109,7 @@
 
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="text" class="form-control" th:class="${#fields.hasErrors('password')}
+            <input type="password" class="form-control" th:class="${#fields.hasErrors('password')}
                                 ? 'form-control is-invalid' : 'form-control'"
                    th:field="*{password}" id="password">
             <div th:if="${#fields.hasErrors('password')}">
