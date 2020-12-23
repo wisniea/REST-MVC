@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/f592291c08.js" crossorigin="anonymous"></script>
+
+    <styles>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+                integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+                integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+                crossorigin="anonymous"></script>
+        <style>
+            .navbar {
+                margin-bottom: 30px;
+            }
+
+        </style>
+    </styles>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">E-libre</a>
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" href="//localhost:8080/order"><i class="fas fa-shopping-cart"></i> </a>
+            </li>
+
+            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-link" href="//localhost:8080/signup"><i class="fas fa-user-plus"></i>
+                    Sign Up</a>
+            </li>
+            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-link" href="//localhost:8080/login"><i class="fas fa-sign-in-alt"></i>
+                    Login</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" href="//localhost:8080/logout"><i class="fas fa-sign-out-alt"></i>
+                    Logout</a>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+
+<div class="container-fluid">
+
+    <form class="form-inline" th:action="@{'/searchMvc'}" method="get">
+
+        <label class="my-1 mr-2" for="searchBy">Search by: </label>
+
+        <select class="custom-select my-1 mr-sm-2" id="searchBy" name="searchBy">
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+        </select>
+
+        <label class="sr-only" for="name">Name</label>
+        <input type="text" class="form-control my-1 mr-sm-2" id="name" name="name" placeholder="....">
+
+
+        <button type="submit" class="btn btn-primary mr-sm-2">Submit</button>
+
+    </form>
+
+    <div class="container float-left">
+        <h2>List of books</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <!--/*@thymesVar id="books" type="pl.wisniea.restmvc_data.response.BookRest"*/-->
+            <tr th:each="book : ${books}">
+                <td th:text="${book.title}">Title</td>
+                <td><span th:unless="${#lists.isEmpty(book.authors)}" th:each="author : ${book.authors}"
+                          th:text="${author.firstName} + ' ' + ${author.lastName} + '   '"> </span></td>
+                <td>
+                        <form th:if="${book.id != 0}" method="post" th:action="@{'/order/add/' + ${book.id}}">
+                            <button  type="submit" class="btn btn-primary btn-sm">Issue</button>
+                        </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+</div>
+
+</body>
+
+
+</html>

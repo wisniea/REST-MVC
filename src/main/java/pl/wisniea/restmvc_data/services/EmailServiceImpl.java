@@ -19,8 +19,7 @@ public class EmailServiceImpl implements EmailService {
     private final TemplateEngine templateEngine;
     private final JavaMailSender javaMailSender;
 
-    @Value("${DNS}")
-    private String dns;
+
 
     public EmailServiceImpl(VerificationTokenService verificationTokenService, TemplateEngine templateEngine, JavaMailSender javaMailSender) {
         this.verificationTokenService = verificationTokenService;
@@ -39,9 +38,9 @@ public class EmailServiceImpl implements EmailService {
             Context context = new Context();
 
             // Setting url with DNS and Token as query param
-            String link = String.format("http://%s:8080/activation?token=%s", dns, token);
+            String link = String.format("http://localhost:8080/activation?token=%s", token);
 
-            context.setVariable("title", "Welcome to Libroteca! Please verify your email address");
+            context.setVariable("title", "Welcome to E-Libre! Please verify your email address");
             context.setVariable("link", link);
 
             // passing variables to HTML template
@@ -51,7 +50,7 @@ public class EmailServiceImpl implements EmailService {
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setTo(user.getEmail());
-            helper.setSubject("Libroteca e-mail verification");
+            helper.setSubject("E-Libre e-mail verification");
             helper.setText(body, true);
 
             javaMailSender.send(message);
