@@ -30,8 +30,8 @@ public class DataLoad implements ApplicationListener<ContextRefreshedEvent> {
     private static final String ADMIN_STR = "admin";
     private static final String USER_STR = "user";
 
-    private UserRepository userRepository;
-    private BookRepository bookRepository;
+    private  UserRepository userRepository;
+    private  BookRepository bookRepository;
     private BookService bookService;
     private PasswordEncoder passwordEncoder;
     private RestCartRepository restCartRepository;
