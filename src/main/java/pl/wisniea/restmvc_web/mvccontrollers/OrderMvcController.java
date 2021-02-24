@@ -1,5 +1,6 @@
 package pl.wisniea.restmvc_web.mvccontrollers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,9 @@ import pl.wisniea.restmvc_data.entities.UserEntity;
 import pl.wisniea.restmvc_data.request.OrderRequest;
 import pl.wisniea.restmvc_data.services.BookService;
 import pl.wisniea.restmvc_data.services.OrderService;
+import pl.wisniea.restmvc_data.services.RestCartService;
 import pl.wisniea.restmvc_data.services.UserService;
+import pl.wisniea.restmvc_web.restcontrollers.CartRestController;
 
 import java.security.Principal;
 import java.util.Set;
@@ -25,6 +28,7 @@ public class OrderMvcController {
     private final BookService bookService;
     private final UserService userService;
     private final OrderService orderService;
+    private final CartRestController cart;
 
     @ModelAttribute("order")
     public OrderRequest getOrder() {
@@ -51,7 +55,7 @@ public class OrderMvcController {
     }
 
     @PostMapping("/order/confirm")
-    public String confirmOrder(@ModelAttribute("order") OrderRequest orderRequest, Principal principal, Model model, SessionStatus status) throws UserServiceException {
+    public String confirmOrder(@ModelAttribute("order") OrderRequest orderRequest, Principal principal, Model model, SessionStatus status) throws UserServiceException, JsonProcessingException {
         Set<BookEntity> booksRequest = orderRequest.getBooks();
 
         OrderEntity order = new OrderEntity();
@@ -59,6 +63,7 @@ public class OrderMvcController {
         order.setBooks(booksRequest);
         order.setUser(user);
         orderService.saveOrder(order);
+        cart.confirmCartAndPlaceOrder(principal);
 
         status.setComplete();
 

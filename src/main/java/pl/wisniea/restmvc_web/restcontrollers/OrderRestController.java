@@ -1,6 +1,7 @@
 package pl.wisniea.restmvc_web.restcontrollers;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;

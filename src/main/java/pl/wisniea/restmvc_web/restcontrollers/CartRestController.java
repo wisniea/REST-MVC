@@ -3,14 +3,13 @@ package pl.wisniea.restmvc_web.restcontrollers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.*;
-import pl.wisniea.restmvc_web.config.JmsConfig;
 import pl.wisniea.restmvc_data.exceptions.BookServiceException;
 import pl.wisniea.restmvc_data.exceptions.UserServiceException;
 import pl.wisniea.restmvc_data.entities.BookEntity;
@@ -40,15 +39,15 @@ public class CartRestController {
     private final ModelMapper modelMapper;
     private final BookService bookService;
     private final OrderService orderService;
-    private final JmsTemplate jmsTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
-    public CartRestController(UserService userService, RestCartService restCartService, ModelMapper modelMapper, BookService bookService, OrderService orderService, JmsTemplate jmsTemplate) {
+    public CartRestController(UserService userService, RestCartService restCartService, ModelMapper modelMapper, BookService bookService, OrderService orderService, RabbitTemplate rabbitTemplate) {
         this.userService = userService;
         this.restCartService = restCartService;
         this.modelMapper = modelMapper;
         this.bookService = bookService;
         this.orderService = orderService;
-        this.jmsTemplate = jmsTemplate;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @GetMapping
@@ -99,7 +98,8 @@ public class CartRestController {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonOrder = objectMapper.writeValueAsString(orderRest);
 
-        jmsTemplate.convertAndSend(JmsConfig.ORDER_QUEUE, jsonOrder);
+        rabbitTemplate.convertAndSend("ORDER_QUEUE", jsonOrder);
+        System.out.println(rabbitTemplate.receiveAndConvert("ORDER_QUEUE"));
 
         return new ResponseEntity<>(orderRest, HttpStatus.CREATED);
     }
